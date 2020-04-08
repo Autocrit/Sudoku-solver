@@ -105,10 +105,25 @@ window.onload = function onLoad()
 	array_to_table(zero_grid);
 }
 
-function onClickSolve()
+unction onClickSolve()
 {
 	steps = 0;
 	table_to_array();
+	
+	// Quick check
+	var count = 0;
+	for(var i=0; i<9; i++)
+	{
+		for(var j=0; j<9; j++)
+		{
+			if(grid[i][j] != 0)
+				count++;
+		}
+	}
+
+	if(count < 17)
+		return;
+
 	copy_grid(grid, clue_grid);
 	copy_grid(clue_grid, solution_grid);
 	var t0 = performance.now();
