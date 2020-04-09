@@ -1,6 +1,6 @@
 body {
   font-family: 'Inconsolata';
-  font-size: 24px;
+  font-size: 18px;
 }
 
 table {
@@ -17,8 +17,8 @@ colgroup, tbody {
 
 td {
   border: solid thin;
-  height: 1.8em;
-  width: 1.8em;
+  height: 2.5em;
+  width: 2.5em;
   text-align: center;
   padding: 0;
 }
@@ -29,6 +29,8 @@ input {
   box-sizing: border-box;
   border: none;
   text-align: center;
+  font-family: 'Inconsolata';
+  font-size: 30px;
 }
 
 button {
@@ -37,11 +39,12 @@ button {
 }
 
 .clue {
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .solution {
-  color: blue;
+  color: rgb(100,149,237);
+  font-weight: 100;
 }
 
 .center {
