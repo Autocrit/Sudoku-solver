@@ -54,17 +54,6 @@ var sample_grid_4 = [
 	[0,0,7,4,0,2,0,0,6]];
 
 var sample_grid_5 = [
-	[8,1,2,7,5,3,6,4,9],
-	[9,4,3,6,8,2,1,7,5],
-	[6,7,5,4,9,1,2,8,3],
-	[1,5,4,2,3,7,8,9,6],
-	[3,6,9,8,4,5,7,2,1],
-	[2,8,7,1,6,9,5,3,4],
-	[5,2,1,9,7,4,3,6,8],
-	[4,3,8,5,2,6,9,1,7],
-	[7,9,6,3,1,8,4,5,2]];
-
-var sample_grid_6 = [
 	[0,0,5,0,0,0,0,1,0],
 	[0,0,3,0,0,0,2,9,0],
 	[0,4,0,0,6,0,0,0,8],
@@ -75,7 +64,7 @@ var sample_grid_6 = [
 	[0,0,0,0,0,0,7,4,0],
 	[0,3,0,9,0,0,6,0,0]];
 
-var sample_grid_7 = [
+var sample_grid_6 = [
 	[0,0,0,4,3,1,0,0,0],
 	[0,0,8,0,0,0,4,0,0],
 	[0,3,0,0,0,0,0,1,0],
@@ -161,10 +150,32 @@ function onClickClear()
 	array_to_table(zero_grid);
 }
 
-function onClickSample()
+function onClickSample(id)
 {
 	document.getElementById("info").innerHTML = "";
-	copy_grid(sample_grid_7, clue_grid);
+	var sample_grid = sample_btn_1;
+	switch(id)
+	{
+		case "sample_btn_1":
+			sample_grid = sample_grid_1;
+			break;
+		case "sample_btn_2":
+			sample_grid = sample_grid_2;
+			break;
+		case "sample_btn_3":
+			sample_grid = sample_grid_3;
+			break;
+		case "sample_btn_4":
+			sample_grid = sample_grid_4;
+			break;
+		case "sample_btn_5":
+			sample_grid = sample_grid_5;
+			break;
+		case "sample_btn_6":
+			sample_grid = sample_grid_6;
+			break;
+	}
+	copy_grid(sample_grid, clue_grid);
 	array_to_table(clue_grid);
 }
 
@@ -281,4 +292,9 @@ function solve()
 
 document.getElementById("solve_btn").addEventListener("click", onClickSolve);
 document.getElementById("clear_btn").addEventListener("click", onClickClear);
-document.getElementById("sample_btn").addEventListener("click", onClickSample);
+document.getElementById("sample_btn_1").addEventListener("click", function() {onClickSample(this.id);});
+document.getElementById("sample_btn_2").addEventListener("click", function() {onClickSample(this.id);});
+document.getElementById("sample_btn_3").addEventListener("click", function() {onClickSample(this.id);});
+document.getElementById("sample_btn_4").addEventListener("click", function() {onClickSample(this.id);});
+document.getElementById("sample_btn_5").addEventListener("click", function() {onClickSample(this.id);});
+document.getElementById("sample_btn_6").addEventListener("click", function() {onClickSample(this.id);});
