@@ -13,7 +13,8 @@ body {
 .box1, .box2 {
   display: inline-block;
   text-align: left;
-  vertical-align: middle;
+  vertical-align: top;
+  padding: 5px;
 }
 
 table {
@@ -50,6 +51,7 @@ button {
   font-family: 'Inconsolata';
   font-size: 20px;
   width: 150px;
+  margin-bottom: 5px;
 }
 
 .clue {
