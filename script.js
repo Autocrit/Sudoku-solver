@@ -21,28 +21,6 @@ var sample_grid_1 = [
 	[0,0,0,0,8,0,0,7,9]];
 
 var sample_grid_2 = [
-	[8,0,0,0,0,0,0,0,0],
-	[0,0,3,6,0,0,0,0,0],
-	[0,7,0,0,9,0,2,0,0],
-	[0,5,0,0,0,7,0,0,0],
-	[0,0,0,0,4,5,7,0,0],
-	[0,0,0,1,0,0,0,3,0],
-	[0,0,1,0,0,0,0,6,8],
-	[0,0,8,5,0,0,0,1,0],
-	[0,9,0,0,0,0,4,0,0]];
-
-var sample_grid_3 = [
-	[0,2,9,0,0,0,4,0,0],
-	[0,0,0,5,0,0,1,0,0],
-	[0,4,0,0,0,0,0,0,0],
-	[0,0,0,0,4,2,0,0,0],
-	[6,0,0,0,0,0,0,7,0],
-	[5,0,0,0,0,0,0,0,0],
-	[7,0,0,3,0,0,0,0,5],
-	[0,1,0,0,9,0,0,0,0],
-	[0,0,0,0,0,0,0,6,0]];
-
-var sample_grid_4 = [
 	[1,0,0,2,0,3,8,0,0],
 	[0,0,4,0,5,0,0,0,0],
 	[6,0,0,0,0,0,0,0,7],
@@ -53,7 +31,7 @@ var sample_grid_4 = [
 	[0,0,0,0,3,0,9,0,0],
 	[0,0,7,4,0,2,0,0,6]];
 
-var sample_grid_5 = [
+var sample_grid_3 = [
 	[0,0,5,0,0,0,0,1,0],
 	[0,0,3,0,0,0,2,9,0],
 	[0,4,0,0,6,0,0,0,8],
@@ -64,7 +42,40 @@ var sample_grid_5 = [
 	[0,0,0,0,0,0,7,4,0],
 	[0,3,0,9,0,0,6,0,0]];
 
+var sample_grid_4 = [
+	[0,2,9,0,0,0,4,0,0],
+	[0,0,0,5,0,0,1,0,0],
+	[0,4,0,0,0,0,0,0,0],
+	[0,0,0,0,4,2,0,0,0],
+	[6,0,0,0,0,0,0,7,0],
+	[5,0,0,0,0,0,0,0,0],
+	[7,0,0,3,0,0,0,0,5],
+	[0,1,0,0,9,0,0,0,0],
+	[0,0,0,0,0,0,0,6,0]];
+
+var sample_grid_5 = [
+	[0,0,6,8,0,9,1,0,0],
+	[0,0,0,7,0,1,0,0,0],
+	[0,0,0,0,0,0,0,0,0],
+	[5,0,0,2,0,8,0,0,4],
+	[4,3,0,0,0,0,0,9,5],
+	[0,6,0,0,0,0,0,8,0],
+	[0,0,0,0,0,0,0,0,0],
+	[2,0,0,5,3,6,0,0,9],
+	[0,0,7,0,0,0,4,0,0]];
+
 var sample_grid_6 = [
+	[8,0,0,0,0,0,0,0,0],
+	[0,0,3,6,0,0,0,0,0],
+	[0,7,0,0,9,0,2,0,0],
+	[0,5,0,0,0,7,0,0,0],
+	[0,0,0,0,4,5,7,0,0],
+	[0,0,0,1,0,0,0,3,0],
+	[0,0,1,0,0,0,0,6,8],
+	[0,0,8,5,0,0,0,1,0],
+	[0,9,0,0,0,0,4,0,0]];
+
+var sample_grid_7 = [
 	[0,0,0,4,3,1,0,0,0],
 	[0,0,8,0,0,0,4,0,0],
 	[0,3,0,0,0,0,0,1,0],
@@ -112,13 +123,13 @@ var steps = 0;
 
 window.onload = function onLoad()
 {
-	array_to_table(zero_grid);
+	grid_to_table(zero_grid);
 }
 
 function onClickSolve()
 {
 	steps = 0;
-	table_to_array();
+	table_to_grid();
 	
 	// Quick check
 	var count = 0;
@@ -141,13 +152,13 @@ function onClickSolve()
 	var t1 = performance.now();
 	//console.log(t1 - t0 + " ms");
 	document.getElementById("info").innerHTML = "Solved in " + steps.toLocaleString() + " step(s) and " + ((t1 - t0).toFixed(0)).toLocaleString() + " ms.";
-	array_to_table(solution_grid);
+	grid_to_table(solution_grid);
 }
 
 function onClickClear()
 {
 	document.getElementById("info").innerHTML = "";
-	array_to_table(zero_grid);
+	grid_to_table(zero_grid);
 }
 
 function onClickSample(id)
@@ -174,9 +185,12 @@ function onClickSample(id)
 		case "sample_btn_6":
 			sample_grid = sample_grid_6;
 			break;
+		case "sample_btn_7":
+			sample_grid = sample_grid_7;
+			break;
 	}
 	copy_grid(sample_grid, clue_grid);
-	array_to_table(clue_grid);
+	grid_to_table(clue_grid);
 }
 
 function copy_grid(src, dest)
@@ -190,7 +204,28 @@ function copy_grid(src, dest)
 	}
 }
 
-function array_to_table(grid)
+function grid_to_string(grid)
+{
+	var str = "var sample_grid_ = [";
+	for(var i=0; i<9; i++)
+	{
+		str += "[";
+		for(var j=0; j<9; j++)
+		{
+			str += grid[i][j];
+			if(j < 8)
+				str += ",";
+		}
+		str += "]";
+		if(i < 8)
+				str += ",";
+	}
+	str += "];";
+
+	return str;
+}
+
+function grid_to_table(grid)
 {
 	var table = document.getElementById("table");
 
@@ -219,7 +254,7 @@ function array_to_table(grid)
 	}
 }
 
-function table_to_array()
+function table_to_grid()
 {
 	var table = document.getElementById("table");
 
@@ -298,3 +333,4 @@ document.getElementById("sample_btn_3").addEventListener("click", function() {on
 document.getElementById("sample_btn_4").addEventListener("click", function() {onClickSample(this.id);});
 document.getElementById("sample_btn_5").addEventListener("click", function() {onClickSample(this.id);});
 document.getElementById("sample_btn_6").addEventListener("click", function() {onClickSample(this.id);});
+document.getElementById("sample_btn_7").addEventListener("click", function() {onClickSample(this.id);});
